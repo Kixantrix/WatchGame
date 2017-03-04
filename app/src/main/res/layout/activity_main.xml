@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.wearable.view.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="true"
+
+    tools:context="com.example.michaelvonhippel.myapplication.MainActivity"
+    tools:deviceIds="wear">
+
+    <Button
+        android:layout_width="47px"
+        android:layout_height="match_parent"
+        android:id="@+id/Yellow"
+        android:onClick="onColorClick"
+        android:layout_gravity="right|clip_vertical|clip_horizontal"
+        android:background="@color/orange" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="47px"
+        android:id="@+id/Blue"
+        android:background="@color/blue"
+        android:onClick="onColorClick"
+        android:layout_gravity="bottom|left|clip_vertical|clip_horizontal"/>
+
+    <Button
+        android:layout_width="47px"
+        android:layout_height="match_parent"
+        android:id="@+id/Green"
+        android:onClick="onColorClick"
+        android:layout_gravity="left|clip_vertical|clip_horizontal"
+        android:background="@color/green" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="47px"
+        android:id="@+id/Red"
+        android:background="@color/red"
+        android:onClick="onColorClick"
+        android:layout_gravity="top|clip_vertical|clip_horizontal"
+        android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:id="@+id/HighScrore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="High Score:"
+        android:layout_gravity="top|center_horizontal"
+        android:textColor="@android:color/black"
+        app:layout_box="all" />
+
+    <TextView
+        android:id="@+id/Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score:"
+        android:layout_gravity="bottom|center_horizontal"
+        app:layout_box="all" />
+
+    <Button
+        android:id="@+id/PlayButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/circle"
+        android:onClick="onPlayClick"
+        android:text="Play"
+        app:layout_box="all"
+    />
+
+    <RelativeLayout
+        android:id="@+id/CircleLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_gravity="center">
+    </RelativeLayout>
+
+
+
+</android.support.wearable.view.BoxInsetLayout>

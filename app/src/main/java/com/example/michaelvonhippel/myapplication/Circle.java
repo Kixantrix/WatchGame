@@ -7,9 +7,11 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,12 +36,12 @@ import static com.example.michaelvonhippel.myapplication.R.id.center;
 
 public class Circle {
 
-    // 16 MS time step
+    // 16 MS time step as used in game
     final long TIMESTEP = 16;
     // Maximum circle size
-    final double START_SIZE = 50.0;
+    final double START_SIZE = 0;
     // Maximum circle size
-    final double MAX_SIZE = 185.0;
+    final double MAX_SIZE = 480;
     // Double size
     private double currentSize;
     // Color of the circle
@@ -55,8 +57,10 @@ public class Circle {
         this.color = color;
         circle.setHeight((int)START_SIZE);
         circle.setWidth((int)START_SIZE);
-        circle.setGravity(center);
         circle.setBackgroundResource(color);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+        circle.setLayoutParams(params);
     }
 
     // Sets the size field and updates height and width of the
@@ -74,9 +78,9 @@ public class Circle {
      */
     public boolean updateCircle(double speed, long elapsedTime) {
         double deltaSize = speed * elapsedTime / TIMESTEP;
+        System.out.print(deltaSize);
         double newSize = currentSize + deltaSize;
         if(newSize >= MAX_SIZE) {
-            setSize(MAX_SIZE);
             return true;
         } else {
             setSize(newSize);
@@ -88,12 +92,13 @@ public class Circle {
     On destruct method.
      */
     public void destroy() {
-        ((ViewGroup) circle.getParent()).removeView(circle);
+        RelativeLayout parent = (RelativeLayout) circle.getParent();
+        parent.removeView(circle);
     }
 
     // Comparator outside
     public boolean isColor(int otherColor) {
-        return this.color == otherColor;
+            return this.color == otherColor;
     }
 
 }

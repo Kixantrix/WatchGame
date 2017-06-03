@@ -1,5 +1,7 @@
 package com.example.michaelvonhippel.myapplication;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,12 +16,16 @@ import android.widget.TextView;
 //import com.google.android.gms.appindexing.AppIndex;
 //import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.vision.text.Text;
 
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.prefs.Preferences;
+
+import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends WearableActivity {
 
@@ -38,6 +44,8 @@ public class MainActivity extends WearableActivity {
     private RelativeLayout mCircleLayout;
     // Game
     private Game game;
+    // View of strikes left number.
+    private TextView mTriesView;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -52,14 +60,16 @@ public class MainActivity extends WearableActivity {
         // Get objects from the DOM
         mContainerView = (BoxInsetLayout) findViewById(R.id.container);
         mScoreView = (TextView) findViewById(R.id.Score);
-        mHighScoreView = (TextView) findViewById(R.id.HighScrore);
+        mHighScoreView = (TextView) findViewById(R.id.HighScore);
         mPlayButton = (Button) findViewById(R.id.PlayButton);
         mCircleLayout = (RelativeLayout) findViewById(R.id.CircleLayout);
+        mTriesView = (TextView) findViewById(R.id.Tries);
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
 
         /*
         Initialize game object.
          */
-        game = new Game(mCircleLayout, mPlayButton, this);
+        game = new Game(mCircleLayout, mPlayButton, this, mScoreView, mHighScoreView, mTriesView, sharedPref);
     }
 
     /*
@@ -71,9 +81,29 @@ public class MainActivity extends WearableActivity {
 
     /*
     Color Button Click
+    TODO: Add better translation method for schenarios
      */
     public void onColorClick(View view) {
-        int color = view.getSolidColor();
+        int id = view.getId();
+        int color;
+        switch(id) {
+            case R.id.Blue:
+                color = R.drawable.blue_circle;
+                break;
+            case R.id.Red:
+                color = R.drawable.red_circle;
+                break;
+            case R.id.Yellow:
+                color = R.drawable.yellow_circle;
+                break;
+            case R.id.Green:
+                color = R.drawable.green_circle;
+                break;
+            default:
+                color = R.drawable.blue_circle;
+                break;
+        }
+        game.onButtonPress(color);
     }
 
     @Override
@@ -108,6 +138,7 @@ public class MainActivity extends WearableActivity {
 
     @Override
     public void onStop() {
+        this.game.pause();
         super.onStop();
     }
 }

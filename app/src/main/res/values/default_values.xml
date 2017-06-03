@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="circle_size_start">50</integer>
+    <integer name="circle_size_max">480</integer>
+    <integer name="time_step">16</integer>
+    <integer name="circle_step">2000</integer>
+    <color name="game_yellow">#D3B315</color>
+    <color name="game_red">#D33615</color>
+    <color name="game_blue">#391D91</color>
+    <color name="game_green">#0F9943</color>
+    <color name="play_color">#FFFFFF</color>
+</resources>
